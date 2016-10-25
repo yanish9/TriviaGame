@@ -16,6 +16,8 @@ var count = 0;
 
 var opts = [];
 
+var timer;
+
 function set (question, opts, answer) {
 	this.question = question;
 	this.opts = shuffle(opts);
@@ -107,7 +109,7 @@ setTimeout(function (argument) {
 
 		nextQuestion(count++);
 
-		resetTimer();
+		
 
 	}, 2000);
 
@@ -140,20 +142,35 @@ startTimer();
 
 function restart () {
 	count =0;
+	wins =0;
+	losses = 0;
+
 	nextQuestion();
 
 }
 
 function resetTimer (argument) {
-	time = 30;
+
+
 }
 
 function startTimer (argument) {
 
-	var timer = setInterval(function () {
+$(".time_text").empty();
+var div = $(" <div>Time Remaining: <div id='time'>30 </div></div>");
+$(".time_text").append(div);
+	clearInterval(timer);
+	time = 30;
+
+	timer = setInterval(function () {
 
 		$("#time").html(time--);
-		
+
+
+		if (time == 5 ) {
+
+				$("#time").addClass("critical");
+	}
 
 		if (time == 0) {
 			clearInterval(timer);
